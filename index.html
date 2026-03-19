@@ -601,6 +601,22 @@
   }
 }
 
+/* MOBILE CERTIFICATE GRID */
+@media (max-width: 768px){
+
+  #certificates .projects-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  /* First certificate full width */
+  #certificates .project-card:nth-child(1){
+    grid-column: span 3;
+  }
+
+}
+
 </style>
 </head>
 <body>
