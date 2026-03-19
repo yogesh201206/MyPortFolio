@@ -134,6 +134,7 @@
     margin-bottom: 1.5rem;
     background: linear-gradient(135deg, var(--text) 0%, var(--text2) 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
   }
   .hero-subtitle {
@@ -335,6 +336,8 @@
     color: var(--text2);
     letter-spacing: 0.05em;
   }
+
+
   /* Contact */
   .contact-layout {
     display: grid; grid-template-columns: 1fr 1.2fr;
@@ -461,6 +464,143 @@
     .contact-layout { grid-template-columns: 1fr; }
     footer { padding: 2rem 1.5rem; flex-direction: column; }
   }
+
+  /* EDUCATION TIMELINE */
+.timeline{position:relative;margin-left:20px}
+.timeline::before{content:"";position:absolute;left:10px;top:0;width:2px;height:100%;background:#444}
+.timeline-item{margin-bottom:40px;position:relative;opacity:0;transform:translateY(30px);transition:all 0.6s ease}
+.timeline-item.show{opacity:1;transform:translateY(0)}
+.timeline-dot{position:absolute;left:-2px;top:5px;width:20px;height:20px;background:#fff;border-radius:50%;box-shadow:0 0 10px #fff,0 0 20px #fff}
+.timeline-content{margin-left:40px;background:var(--card);padding:20px;border-radius:10px;border:1px solid var(--border)}
+.timeline-content span{color:var(--text2);font-size:14px}
+/* EDUCATION HOVER EFFECT */
+.timeline-content{
+  transition: all 0.4s ease;
+}
+
+.timeline-content:hover{
+  transform: translateY(-5px);
+  border-color: var(--accent2);
+  box-shadow: 0 10px 30px var(--glow);
+}
+.timeline-content:hover{
+  transform: translateY(-5px) scale(1.02);
+}
+.timeline-dot{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  top:5px;
+  width:18px;
+  height:18px;
+  background: var(--accent);
+  border-radius:50%;
+  box-shadow: 0 0 10px var(--glow);
+}
+.timeline::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  top:0;
+  width:2px;
+  height:100%;
+  background: var(--border);
+}
+.timeline-item{
+  width:50%;
+  padding:10px 30px;
+  position:relative;
+}
+.timeline-item:nth-child(odd){
+  left:0;
+  text-align:right;
+}
+
+.timeline-item:nth-child(even){
+  left:50%;
+}
+
+.timeline-content{
+  position:relative;
+}
+
+/* CERTIFICATE IMAGE */
+.cert-img{
+  width:100%;
+  border-radius:8px;
+  margin-bottom:15px;
+  transition:0.4s;
+}
+
+.cert-img:hover{
+  transform:scale(1.03);
+}
+
+/* CERTIFICATE CARD HOVER */
+.project-card{
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card:hover{
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 40px var(--glow);
+  border-color: var(--accent2);
+}
+
+/* IMAGE ZOOM */
+.project-card:hover .cert-img{
+  transform: scale(1.08);
+}
+
+/* GLOW OVERLAY EFFECT */
+.project-card::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.6s;
+}
+
+.project-card:hover::before{
+  left: 100%;
+}
+
+/* MOBILE FIX FOR EDUCATION */
+@media (max-width: 768px){
+
+  .timeline::before{
+    left: 20px; /* move line to left */
+    transform: none;
+  }
+
+  .timeline-item{
+    width: 100%;
+    padding-left: 50px;
+    padding-right: 10px;
+  }
+
+  .timeline-item:nth-child(odd),
+  .timeline-item:nth-child(even){
+    left: 0;
+    text-align: left;
+  }
+
+  .timeline-dot{
+    left: 20px; /* align dot with line */
+    transform: none;
+  }
+
+  .timeline-content{
+    margin-left: 0;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -469,7 +609,7 @@
 <div id="scroll-progress"></div>
 
 <nav>
-  <a href="#hero" class="nav-logo"></a>
+  <a href="#hero" class="nav-logo">YOGESH</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
@@ -625,6 +765,91 @@
   </div>
 </section>
 
+<!-- CERTIFICATES -->
+<section id="certificates">
+  <div class="section-label">// 05 — certificates</div>
+  <div class="section-title reveal">Certificates</div>
+
+  <div class="projects-grid">
+
+    <div class="project-card reveal">
+  <span class="project-num">01</span>
+
+  <a href="cpp-certificate.jpeg" target="_blank">
+  <img src="cpp-certificate.jpeg" class="cert-img">
+</a>
+
+  <div class="project-title">Master of Essential C++ Programming</div>
+  <div class="project-desc">Udemy Certification - Beginner to Advanced</div>
+
+  <div class="project-tags">
+    <span class="tag">C++</span>
+    <span class="tag">Udemy</span>
+  </div>
+</div>
+
+<div class="project-card reveal">
+  <span class="project-num">02</span>
+
+  <a href="cybershield.jpeg" target="_blank">
+    <img src="cybershield.jpeg" class="cert-img">
+  </a>
+
+  <div class="project-title">Cyber Shield 360 - VAPT Strategies</div>
+  <div class="project-desc">30 Hours Cybersecurity Training with CTF Contest</div>
+
+  <div class="project-tags">
+    <span class="tag">Cybersecurity</span>
+    <span class="tag">VAPT</span>
+  </div>
+</div>
+
+<div class="project-card reveal">
+  <span class="project-num">03</span>
+
+  <a href="securityplus.jpeg" target="_blank">
+    <img src="securityplus.jpeg" class="cert-img">
+  </a>
+
+  <div class="project-title">N+ & CompTIA Security+</div>
+  <div class="project-desc">Completed Networking and Security Certification</div>
+
+  <div class="project-tags">
+    <span class="tag">Networking</span>
+    <span class="tag">Security+</span>
+  </div>
+</div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-title">Education</div>
+
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h3><i class="fas fa-school"></i> Sourashtra Boys Higher Secondary School</h3>
+        <span>2016 - 2023</span>
+        <p>Completed schooling with strong foundation in academics and technology basics.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h3><i class="fas fa-graduation-cap"></i> Subbalakshmi Lakshmipathy College of Science</h3>
+        <span>2023 - Current</span>
+        <p>Pursuing degree with focus on security system specialization, programming, and modern technologies.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="section-label">// 04 — contact</div>
@@ -734,7 +959,7 @@ themeToggle.addEventListener('click', () => {
 });
 
 // ── Typing animation ──
-const phrases = ['Developer', 'Cybersecurity Enthusiast', 'Tech Explorer', 'Problem Solver'];
+const phrases = ['Developer', 'Cybersecurity Enthusiast', 'Java Dev', 'Tech Explorer', 'Problem Solver'];
 let pi = 0, ci = 0, deleting = false;
 const typingEl = document.getElementById('typing-text');
 function type() {
@@ -873,6 +1098,15 @@ window.addEventListener('scroll', () => {
   const content = hero.querySelector('.hero-content');
   if (content) content.style.transform = `translateY(${y * 0.3}px)`;
   canvas.style.transform = `translateY(${y * 0.15}px)`;
+});
+const items=document.querySelectorAll('.timeline-item');
+window.addEventListener('scroll',()=>{
+  items.forEach(item=>{
+    const rect=item.getBoundingClientRect();
+    if(rect.top<window.innerHeight-100){
+      item.classList.add('show');
+    }
+  });
 });
 </script>
 </body>
