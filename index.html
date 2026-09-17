@@ -1426,12 +1426,21 @@
   <!-- GITHUB ACTIVITY -->
   <section id="github">
     <style>
-      #github .gh-stats-grid {
+      /* ── GitHub section – top row ── */
+      #github .gh-top-row {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 1.2rem;
         margin: 2rem 0;
       }
+      @media (max-width: 900px) {
+        #github .gh-top-row { grid-template-columns: 1fr 1fr; }
+      }
+      @media (max-width: 480px) {
+        #github .gh-top-row { grid-template-columns: 1fr; }
+      }
+
+      /* Stat card */
       #github .gh-stat-card {
         background: var(--card);
         border: 1px solid var(--border);
@@ -1439,136 +1448,221 @@
         padding: 1.8rem 1.5rem;
         text-align: center;
         transition: var(--transition);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
       }
       #github .gh-stat-card:hover {
         border-color: var(--accent2);
         box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      }
+      #github .gh-stat-icon {
+        font-size: 1.3rem;
+        color: var(--accent2);
+        margin-bottom: 0.3rem;
       }
       #github .gh-stat-value {
         font-family: 'Space Mono', monospace;
         font-size: 2.2rem;
         font-weight: 700;
         color: var(--accent);
-        display: block;
-        margin-bottom: 0.4rem;
+        line-height: 1;
       }
       #github .gh-stat-label {
-        font-size: 0.78rem;
-        color: var(--text2);
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-      }
-      #github .gh-repos-heading {
-        font-family: 'Space Mono', monospace;
         font-size: 0.7rem;
         color: var(--text2);
-        letter-spacing: 0.2em;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
-        margin: 2.5rem 0 1.2rem;
+        margin-top: 0.25rem;
       }
-      #github .gh-repos-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.5rem;
-      }
-      #github .gh-repo-card {
+
+      /* Latest repo mini-cards */
+      #github .gh-repo-mini {
         background: var(--card);
         border: 1px solid var(--border);
         border-radius: 12px;
-        padding: 1.6rem 1.8rem;
+        padding: 1.3rem 1.4rem;
         display: flex;
         flex-direction: column;
-        gap: 0.6rem;
-        transition: var(--transition);
+        gap: 0.45rem;
         text-decoration: none;
         color: inherit;
+        transition: var(--transition);
+        overflow: hidden;
       }
-      #github .gh-repo-card:hover {
+      #github .gh-repo-mini:hover {
         border-color: var(--accent2);
-        box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+        box-shadow: 0 10px 28px rgba(0,0,0,0.2);
         transform: translateY(-3px);
       }
-      #github .gh-repo-name {
-        font-size: 1rem;
+      #github .gh-repo-mini-name {
+        font-size: 0.88rem;
         font-weight: 700;
         color: var(--accent);
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.4rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
-      #github .gh-repo-desc {
-        font-size: 0.84rem;
+      #github .gh-repo-mini-desc {
+        font-size: 0.77rem;
         color: var(--text2);
-        line-height: 1.5;
+        line-height: 1.45;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
         flex: 1;
       }
-      #github .gh-repo-meta {
+      #github .gh-repo-mini-meta {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.8rem;
-        font-size: 0.78rem;
+        gap: 0.55rem;
+        font-size: 0.71rem;
         color: var(--text2);
-        margin-top: 0.4rem;
+        margin-top: auto;
+        padding-top: 0.4rem;
       }
-      #github .gh-repo-meta span {
+      #github .gh-repo-mini-meta span {
         display: flex;
         align-items: center;
-        gap: 0.3em;
+        gap: 0.28em;
       }
       #github .gh-lang-dot {
-        width: 10px;
-        height: 10px;
+        width: 9px; height: 9px;
         border-radius: 50%;
         background: var(--accent2);
         display: inline-block;
         flex-shrink: 0;
       }
+
+      /* Contribution calendar */
+      #github .gh-contrib-heading {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.7rem;
+        color: var(--text2);
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin: 2.8rem 0 0.5rem;
+      }
+      #github .gh-contrib-summary {
+        font-size: 0.84rem;
+        color: var(--text2);
+        margin-bottom: 1.2rem;
+      }
+      #github .gh-contrib-summary strong { color: var(--text); }
+      #github .gh-calendar-wrap {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.4rem 1.6rem 1.1rem;
+        overflow-x: auto;
+      }
+      #github .gh-month-labels {
+        display: flex;
+        margin-left: 24px;
+        margin-bottom: 4px;
+        font-size: 0.66rem;
+        color: var(--text2);
+        font-family: 'Space Mono', monospace;
+        min-width: max-content;
+      }
+      #github .gh-calendar-body {
+        display: flex;
+        gap: 3px;
+        min-width: max-content;
+      }
+      #github .gh-weekday-col {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        font-size: 0.61rem;
+        color: var(--text2);
+        font-family: 'Space Mono', monospace;
+        width: 22px;
+        flex-shrink: 0;
+        padding-top: 1px;
+      }
+      #github .gh-weekday-col span { height: 11px; display: block; line-height: 11px; }
+      #github .gh-week-col { display: flex; flex-direction: column; gap: 3px; }
+      #github .gh-day {
+        width: 11px; height: 11px;
+        border-radius: 2px;
+        cursor: default;
+        transition: opacity 0.15s;
+      }
+      #github .gh-day:hover { opacity: 0.7; }
+
+      /* Dark-mode contribution colours */
+      #github .gh-day[data-level="NONE"]             { background: #161b22; }
+      #github .gh-day[data-level="FIRST_QUARTILE"]   { background: #0e4429; }
+      #github .gh-day[data-level="SECOND_QUARTILE"]  { background: #006d32; }
+      #github .gh-day[data-level="THIRD_QUARTILE"]   { background: #26a641; }
+      #github .gh-day[data-level="FOURTH_QUARTILE"]  { background: #39d353; }
+
+      /* Light-mode contribution colours */
+      body.light #github .gh-day[data-level="NONE"]            { background: #ebedf0; }
+      body.light #github .gh-day[data-level="FIRST_QUARTILE"]  { background: #9be9a8; }
+      body.light #github .gh-day[data-level="SECOND_QUARTILE"] { background: #40c463; }
+      body.light #github .gh-day[data-level="THIRD_QUARTILE"]  { background: #30a14e; }
+      body.light #github .gh-day[data-level="FOURTH_QUARTILE"] { background: #216e39; }
+
       #github .gh-status {
         text-align: center;
-        padding: 2rem;
+        padding: 1.5rem;
         color: var(--text2);
-        font-size: 0.9rem;
+        font-size: 0.88rem;
       }
       #github .gh-profile-btn-wrap {
         text-align: center;
         margin-top: 2.5rem;
       }
-      @media (max-width: 600px) {
-        #github .gh-repos-grid {
-          grid-template-columns: 1fr;
-        }
-      }
     </style>
 
     <div class="section-label">// github</div>
     <div class="section-title reveal">GitHub Activity</div>
-    <p class="about-bio reveal">A live overview of my development activity and latest repositories.</p>
+    <p class="about-bio reveal">A live overview of my development activity.</p>
 
-    <div id="gh-loading" class="gh-status">Loading GitHub activity...</div>
-    <div id="gh-error" class="gh-status" style="display:none;">Unable to load GitHub activity right now.</div>
-
-    <div id="gh-content" style="display:none;">
-      <div class="gh-stats-grid reveal">
-        <div class="gh-stat-card">
-          <span class="gh-stat-value" id="gh-repos">—</span>
-          <span class="gh-stat-label">Public Repositories</span>
-        </div>
-        <div class="gh-stat-card">
-          <span class="gh-stat-value" id="gh-followers">—</span>
-          <span class="gh-stat-label">Followers</span>
-        </div>
+    <!-- Top row: stat card + 3 latest repos -->
+    <div id="gh-row-loading" class="gh-status">Loading GitHub activity...</div>
+    <div id="gh-row-error"   class="gh-status" style="display:none;">Unable to load GitHub repositories right now.</div>
+    <div class="gh-top-row reveal" id="gh-top-row" style="display:none;">
+      <div class="gh-stat-card">
+        <i class="fas fa-book gh-stat-icon"></i>
+        <span class="gh-stat-value" id="gh-total-repos">—</span>
+        <span class="gh-stat-label">Total Repositories</span>
       </div>
+      <a class="gh-repo-mini" id="gh-repo-slot-0" href="#" target="_blank" style="display:none;"></a>
+      <a class="gh-repo-mini" id="gh-repo-slot-1" href="#" target="_blank" style="display:none;"></a>
+      <a class="gh-repo-mini" id="gh-repo-slot-2" href="#" target="_blank" style="display:none;"></a>
+    </div>
 
-      <div class="gh-repos-heading">// Latest Repositories</div>
-      <div class="gh-repos-grid reveal" id="gh-repos-grid"></div>
-
-      <div class="gh-profile-btn-wrap reveal">
-        <a href="https://github.com/yogesh201206" target="_blank" class="btn btn-secondary">
-          <i class="fab fa-github"></i> View GitHub Profile
-        </a>
+    <!-- Contribution calendar -->
+    <div class="gh-contrib-heading reveal">// Contribution Activity</div>
+    <p class="gh-contrib-summary reveal" id="gh-contrib-summary">Loading contribution activity...</p>
+    <div id="gh-contrib-error" class="gh-status" style="display:none;">Unable to load contribution activity right now.</div>
+    <div class="gh-calendar-wrap reveal" id="gh-calendar-wrap" style="display:none;">
+      <div class="gh-month-labels" id="gh-month-labels"></div>
+      <div class="gh-calendar-body">
+        <div class="gh-weekday-col" aria-hidden="true">
+          <span></span><span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span>
+        </div>
+        <div id="gh-calendar-grid" style="display:flex;gap:3px;"></div>
       </div>
     </div>
+
+    <div class="gh-profile-btn-wrap reveal">
+      <a href="https://github.com/yogesh201206" target="_blank" class="btn btn-secondary">
+        <i class="fab fa-github"></i> View GitHub Profile
+      </a>
+    </div>
   </section>
+
 
   <!-- RESUME -->
   <section id="resume">
@@ -1882,16 +1976,31 @@
       });
     });
 
-    // ── GitHub Activity ──
-    (async function loadGitHubActivity() {
-      const GH_USER = 'yogesh201206';
-      const elLoading = document.getElementById('gh-loading');
-      const elError   = document.getElementById('gh-error');
-      const elContent = document.getElementById('gh-content');
+    // ── GitHub Activity: repos + stats ──
+    (async function loadGHRepos() {
+      const GH_USER     = 'yogesh201206';
+      const elLoading   = document.getElementById('gh-row-loading');
+      const elError     = document.getElementById('gh-row-error');
+      const elTopRow    = document.getElementById('gh-top-row');
 
-      function formatDate(iso) {
-        const d = new Date(iso);
-        return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+      function fmtDate(iso) {
+        return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+      }
+
+      function repoCardHTML(repo) {
+        const lang = repo.language
+          ? `<span><span class="gh-lang-dot"></span>${repo.language}</span>`
+          : '';
+        return `
+          <div class="gh-repo-mini-name">
+            <i class="fas fa-book-open" style="font-size:0.8rem;opacity:0.65;flex-shrink:0;"></i>
+            ${repo.name}
+          </div>
+          <p class="gh-repo-mini-desc">${repo.description || 'No description available'}</p>
+          <div class="gh-repo-mini-meta">
+            ${lang}
+            <span><i class="far fa-clock"></i> ${fmtDate(repo.pushed_at)}</span>
+          </div>`;
       }
 
       try {
@@ -1899,43 +2008,92 @@
           fetch(`https://api.github.com/users/${GH_USER}`),
           fetch(`https://api.github.com/users/${GH_USER}/repos?per_page=100&type=owner&sort=pushed&direction=desc`)
         ]);
-
         if (!userRes.ok || !reposRes.ok) throw new Error('API error');
 
         const user  = await userRes.json();
         const repos = await reposRes.json();
 
-        // Populate stats
-        document.getElementById('gh-repos').textContent     = user.public_repos;
-        document.getElementById('gh-followers').textContent = user.followers;
+        // Total repos stat
+        document.getElementById('gh-total-repos').textContent = user.public_repos;
 
-        // Populate repository cards — only CineBot and DSA, sorted by pushed_at desc
-        const featuredRepoNames = ['CineBot', 'DSA'];
-        const featuredRepos = repos
-          .filter(repo => featuredRepoNames.includes(repo.name))
-          .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
-        const grid = document.getElementById('gh-repos-grid');
-        grid.innerHTML = featuredRepos.map(repo => `
-          <a href="${repo.html_url}" target="_blank" class="gh-repo-card">
-            <div class="gh-repo-name">
-              <i class="fas fa-book-open" style="font-size:0.85rem;opacity:0.7;"></i>
-              ${repo.name}
-            </div>
-            <p class="gh-repo-desc">${repo.description || 'No description available'}</p>
-            <div class="gh-repo-meta">
-              ${repo.language ? `<span><span class="gh-lang-dot"></span>${repo.language}</span>` : ''}
-              <span><i class="fas fa-star"></i> ${repo.stargazers_count}</span>
-              <span><i class="fas fa-code-branch"></i> ${repo.forks_count}</span>
-              <span><i class="far fa-clock"></i> ${formatDate(repo.pushed_at)}</span>
-            </div>
-          </a>
-        `).join('');
+        // Latest 3 repos sorted by pushed_at desc
+        const latest3 = repos
+          .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at))
+          .slice(0, 3);
+
+        latest3.forEach((repo, i) => {
+          const slot = document.getElementById(`gh-repo-slot-${i}`);
+          if (!slot) return;
+          slot.href        = repo.html_url;
+          slot.innerHTML   = repoCardHTML(repo);
+          slot.style.display = '';
+        });
 
         elLoading.style.display = 'none';
-        elContent.style.display = 'block';
+        elTopRow.style.display  = '';
       } catch (err) {
         elLoading.style.display = 'none';
         elError.style.display   = 'block';
+      }
+    })();
+
+    // ── GitHub Activity: contribution calendar ──
+    (async function loadGHContributions() {
+      const elSummary     = document.getElementById('gh-contrib-summary');
+      const elContribErr  = document.getElementById('gh-contrib-error');
+      const elCalWrap     = document.getElementById('gh-calendar-wrap');
+      const elGrid        = document.getElementById('gh-calendar-grid');
+      const elMonthLabels = document.getElementById('gh-month-labels');
+
+      try {
+        const res = await fetch('/.netlify/functions/github-contributions');
+        if (!res.ok) throw new Error('Function error');
+
+        const data = await res.json();
+        const { totalContributions, weeks, months } = data;
+
+        // Summary text
+        elSummary.innerHTML = `<strong>${totalContributions.toLocaleString()}</strong> contributions in the last year`;
+
+        // Month labels — position each label by accumulated week offset
+        let weekOffset = 0;
+        const CELL = 14; // 11px cell + 3px gap
+        elMonthLabels.innerHTML = months.map(m => {
+          const el = `<span class="gh-month-label" style="padding-left:${weekOffset * CELL}px;min-width:${m.totalWeeks * CELL}px;">${m.name}</span>`;
+          weekOffset = 0; // reset after first; each label is already offset
+          return el;
+        }).join('');
+
+        // Build month label widths correctly
+        elMonthLabels.innerHTML = '';
+        months.forEach(m => {
+          const span = document.createElement('span');
+          span.className   = 'gh-month-label';
+          span.textContent = m.name;
+          span.style.minWidth = (m.totalWeeks * CELL) + 'px';
+          elMonthLabels.appendChild(span);
+        });
+
+        // Week columns
+        elGrid.innerHTML = '';
+        weeks.forEach(week => {
+          const col = document.createElement('div');
+          col.className = 'gh-week-col';
+          week.contributionDays.forEach(day => {
+            const cell = document.createElement('div');
+            cell.className = 'gh-day';
+            cell.setAttribute('data-level', day.contributionLevel);
+            cell.title = `${day.contributionCount} contribution${day.contributionCount !== 1 ? 's' : ''} on ${new Date(day.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
+            col.appendChild(cell);
+          });
+          elGrid.appendChild(col);
+        });
+
+        elSummary.style.display = '';
+        elCalWrap.style.display = '';
+      } catch (err) {
+        elSummary.style.display   = 'none';
+        elContribErr.style.display = 'block';
       }
     })();
   </script>
