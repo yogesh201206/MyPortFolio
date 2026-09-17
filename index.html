@@ -2038,6 +2038,9 @@
     })();
 
     // ── GitHub Activity: contribution calendar ──
+    // ── NOTE: Contribution calendar requires `netlify dev` for local testing.
+    //   Plain Live Server / static servers do NOT run Netlify Functions.
+    //   Local test URL: http://localhost:8888/.netlify/functions/github-contributions
     (async function loadGHContributions() {
       const elSummary     = document.getElementById('gh-contrib-summary');
       const elContribErr  = document.getElementById('gh-contrib-error');
@@ -2047,29 +2050,27 @@
 
       try {
         const res = await fetch('/.netlify/functions/github-contributions');
-        if (!res.ok) throw new Error('Function error');
 
+        // Always read the body so we can log it on failure
         const data = await res.json();
+
+        if (!res.ok) {
+          console.error('[GitHub Contributions] API failed:', res.status, data);
+          throw new Error(`Function returned ${res.status}`);
+        }
+
         const { totalContributions, weeks, months } = data;
 
         // Summary text
         elSummary.innerHTML = `<strong>${totalContributions.toLocaleString()}</strong> contributions in the last year`;
 
-        // Month labels — position each label by accumulated week offset
-        let weekOffset = 0;
+        // Month labels — each label width = totalWeeks × cell size
         const CELL = 14; // 11px cell + 3px gap
-        elMonthLabels.innerHTML = months.map(m => {
-          const el = `<span class="gh-month-label" style="padding-left:${weekOffset * CELL}px;min-width:${m.totalWeeks * CELL}px;">${m.name}</span>`;
-          weekOffset = 0; // reset after first; each label is already offset
-          return el;
-        }).join('');
-
-        // Build month label widths correctly
         elMonthLabels.innerHTML = '';
         months.forEach(m => {
           const span = document.createElement('span');
-          span.className   = 'gh-month-label';
-          span.textContent = m.name;
+          span.className      = 'gh-month-label';
+          span.textContent    = m.name;
           span.style.minWidth = (m.totalWeeks * CELL) + 'px';
           elMonthLabels.appendChild(span);
         });
@@ -2092,7 +2093,8 @@
         elSummary.style.display = '';
         elCalWrap.style.display = '';
       } catch (err) {
-        elSummary.style.display   = 'none';
+        console.error('[GitHub Contributions] Render error:', err);
+        elSummary.style.display    = 'none';
         elContribErr.style.display = 'block';
       }
     })();
