@@ -1897,7 +1897,7 @@
       try {
         const [userRes, reposRes] = await Promise.all([
           fetch(`https://api.github.com/users/${GH_USER}`),
-          fetch(`https://api.github.com/users/${GH_USER}/repos?per_page=100`)
+          fetch(`https://api.github.com/users/${GH_USER}/repos?per_page=100&type=owner&sort=pushed&direction=desc`)
         ]);
 
         if (!userRes.ok || !reposRes.ok) throw new Error('API error');
@@ -1909,11 +1909,13 @@
         document.getElementById('gh-repos').textContent     = user.public_repos;
         document.getElementById('gh-followers').textContent = user.followers;
 
-        // Populate repository cards — only CineBot and DSA
-        const allowedRepos = ['CineBot', 'DSA'];
-        const selectedRepos = repos.filter(repo => allowedRepos.includes(repo.name));
+        // Populate repository cards — only CineBot and DSA, sorted by pushed_at desc
+        const featuredRepoNames = ['CineBot', 'DSA'];
+        const featuredRepos = repos
+          .filter(repo => featuredRepoNames.includes(repo.name))
+          .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
         const grid = document.getElementById('gh-repos-grid');
-        grid.innerHTML = selectedRepos.map(repo => `
+        grid.innerHTML = featuredRepos.map(repo => `
           <a href="${repo.html_url}" target="_blank" class="gh-repo-card">
             <div class="gh-repo-name">
               <i class="fas fa-book-open" style="font-size:0.85rem;opacity:0.7;"></i>
@@ -1924,7 +1926,7 @@
               ${repo.language ? `<span><span class="gh-lang-dot"></span>${repo.language}</span>` : ''}
               <span><i class="fas fa-star"></i> ${repo.stargazers_count}</span>
               <span><i class="fas fa-code-branch"></i> ${repo.forks_count}</span>
-              <span><i class="far fa-clock"></i> ${formatDate(repo.updated_at)}</span>
+              <span><i class="far fa-clock"></i> ${formatDate(repo.pushed_at)}</span>
             </div>
           </a>
         `).join('');
