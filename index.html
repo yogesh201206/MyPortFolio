@@ -1897,7 +1897,7 @@
       try {
         const [userRes, reposRes] = await Promise.all([
           fetch(`https://api.github.com/users/${GH_USER}`),
-          fetch(`https://api.github.com/users/${GH_USER}/repos?sort=updated&per_page=4`)
+          fetch(`https://api.github.com/users/${GH_USER}/repos?per_page=100`)
         ]);
 
         if (!userRes.ok || !reposRes.ok) throw new Error('API error');
@@ -1909,9 +1909,11 @@
         document.getElementById('gh-repos').textContent     = user.public_repos;
         document.getElementById('gh-followers').textContent = user.followers;
 
-        // Populate repository cards
+        // Populate repository cards — only CineBot and DSA
+        const allowedRepos = ['CineBot', 'DSA'];
+        const selectedRepos = repos.filter(repo => allowedRepos.includes(repo.name));
         const grid = document.getElementById('gh-repos-grid');
-        grid.innerHTML = repos.map(repo => `
+        grid.innerHTML = selectedRepos.map(repo => `
           <a href="${repo.html_url}" target="_blank" class="gh-repo-card">
             <div class="gh-repo-name">
               <i class="fas fa-book-open" style="font-size:0.85rem;opacity:0.7;"></i>
