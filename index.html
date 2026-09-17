@@ -1433,8 +1433,7 @@
           <div class="contact-icon"><i class="fas fa-envelope"></i></div>
           <div>
             <div class="contact-label">Email</div>
-            <div class="contact-value"><a href="mailto:yogeshmp
-1220@gmail.com">yogeshmp.1220@gmail.com</a></div>
+            <div class="contact-value"><a href="mailto:yogeshmp.1220@gmail.com">yogeshmp.1220@gmail.com</a></div>
           </div>
         </div>
         <div class="contact-info-item">
@@ -1445,12 +1444,6 @@
                 target="_blank">yogesh-m-p</a></div>
           </div>
         </div>
-        <div class="reveal" style="margin-bottom:1.5rem;">
-          <span class="tag">
-            <i class="fas fa-circle" style="font-size:0.5rem;"></i>
-            Available for Freelance Projects
-          </span>
-        </div>
         <div class="contact-info-item">
           <div class="contact-icon"><i class="fab fa-github"></i></div>
           <div>
@@ -1458,24 +1451,49 @@
             <div class="contact-value"><a href="https://github.com/yogesh201206" target="_blank">yogesh201206</a></div>
           </div>
         </div>
+        <div class="reveal" style="margin-bottom:1.5rem;">
+          <span class="tag">
+            <i class="fas fa-circle" style="font-size:0.5rem;"></i>
+            Available for Freelance Projects
+          </span>
+        </div>
       </div>
-      <div class="reveal">
+      <form
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        class="reveal"
+      >
+        <input type="hidden" name="form-name" value="contact">
+
+        <p hidden>
+          <label>
+            Don’t fill this out:
+            <input name="bot-field">
+          </label>
+        </p>
+
         <div class="form-group">
           <label>Name</label>
-          <input type="text" placeholder="Your name">
+          <input type="text" name="name" placeholder="Your name" required>
         </div>
         <div class="form-group">
           <label>Email</label>
-          <input type="email" placeholder="your@email.com">
+          <input type="email" name="email" placeholder="your@email.com" required>
         </div>
         <div class="form-group">
           <label>Message</label>
-          <textarea placeholder="What's on your mind?"></textarea>
+          <textarea name="message" placeholder="What's on your mind?" required></textarea>
         </div>
-        <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="handleFormSubmit(this)">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          style="width:100%; justify-content:center;"
+        >
           <i class="fas fa-paper-plane"></i> Send Message
         </button>
-      </div>
+      </form>
     </div>
   </section>
 
@@ -1674,13 +1692,6 @@
       });
     });
 
-    // ── Form submit ──
-    function handleFormSubmit(btn) {
-      const orig = btn.innerHTML;
-      btn.innerHTML = '<i class="fas fa-check"></i> Sent!';
-      btn.style.background = '#2a2a2a';
-      setTimeout(() => { btn.innerHTML = orig; btn.style.background = ''; }, 3000);
-    }
 
     // ── Parallax on hero ──
     window.addEventListener('scroll', () => {
