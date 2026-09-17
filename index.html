@@ -1048,6 +1048,8 @@
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#projects">Projects</a></li>
+      <li><a href="#github">GitHub</a></li>
+      <li><a href="#resume">Resume</a></li>
       <li><a href="#contact">Hire Me</a></li>
     </ul>
     <div class="nav-right">
@@ -1421,6 +1423,175 @@
     </div>
   </section>
 
+  <!-- GITHUB ACTIVITY -->
+  <section id="github">
+    <style>
+      #github .gh-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+      #github .gh-stat-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.8rem 1.5rem;
+        text-align: center;
+        transition: var(--transition);
+      }
+      #github .gh-stat-card:hover {
+        border-color: var(--accent2);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      }
+      #github .gh-stat-value {
+        font-family: 'Space Mono', monospace;
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: var(--accent);
+        display: block;
+        margin-bottom: 0.4rem;
+      }
+      #github .gh-stat-label {
+        font-size: 0.78rem;
+        color: var(--text2);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      #github .gh-repos-heading {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.7rem;
+        color: var(--text2);
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin: 2.5rem 0 1.2rem;
+      }
+      #github .gh-repos-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+      }
+      #github .gh-repo-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.6rem 1.8rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        transition: var(--transition);
+        text-decoration: none;
+        color: inherit;
+      }
+      #github .gh-repo-card:hover {
+        border-color: var(--accent2);
+        box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+        transform: translateY(-3px);
+      }
+      #github .gh-repo-name {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      #github .gh-repo-desc {
+        font-size: 0.84rem;
+        color: var(--text2);
+        line-height: 1.5;
+        flex: 1;
+      }
+      #github .gh-repo-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        font-size: 0.78rem;
+        color: var(--text2);
+        margin-top: 0.4rem;
+      }
+      #github .gh-repo-meta span {
+        display: flex;
+        align-items: center;
+        gap: 0.3em;
+      }
+      #github .gh-lang-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--accent2);
+        display: inline-block;
+        flex-shrink: 0;
+      }
+      #github .gh-status {
+        text-align: center;
+        padding: 2rem;
+        color: var(--text2);
+        font-size: 0.9rem;
+      }
+      #github .gh-profile-btn-wrap {
+        text-align: center;
+        margin-top: 2.5rem;
+      }
+      @media (max-width: 600px) {
+        #github .gh-repos-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+
+    <div class="section-label">// github</div>
+    <div class="section-title reveal">GitHub Activity</div>
+    <p class="about-bio reveal">A live overview of my development activity and latest repositories.</p>
+
+    <div id="gh-loading" class="gh-status">Loading GitHub activity...</div>
+    <div id="gh-error" class="gh-status" style="display:none;">Unable to load GitHub activity right now.</div>
+
+    <div id="gh-content" style="display:none;">
+      <div class="gh-stats-grid reveal">
+        <div class="gh-stat-card">
+          <span class="gh-stat-value" id="gh-repos">—</span>
+          <span class="gh-stat-label">Public Repositories</span>
+        </div>
+        <div class="gh-stat-card">
+          <span class="gh-stat-value" id="gh-followers">—</span>
+          <span class="gh-stat-label">Followers</span>
+        </div>
+      </div>
+
+      <div class="gh-repos-heading">// Latest Repositories</div>
+      <div class="gh-repos-grid reveal" id="gh-repos-grid"></div>
+
+      <div class="gh-profile-btn-wrap reveal">
+        <a href="https://github.com/yogesh201206" target="_blank" class="btn btn-secondary">
+          <i class="fab fa-github"></i> View GitHub Profile
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESUME -->
+  <section id="resume">
+    <div class="section-label">// resume</div>
+    <div class="section-title reveal">Resume</div>
+    <p class="about-bio reveal">View or download my latest resume.</p>
+    <div class="reveal" style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin-top:2rem;">
+      <a href="./assets/resume.pdf"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="btn btn-secondary">
+        <i class="fas fa-eye"></i>
+        View Resume
+      </a>
+      <a href="./assets/resume.pdf"
+         download="Yogesh_MP_Resume.pdf"
+         class="btn btn-primary">
+        <i class="fas fa-download"></i>
+        Download Resume
+      </a>
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section id="contact">
     <div class="section-label">// 04 — contact</div>
@@ -1710,6 +1881,59 @@
         }
       });
     });
+
+    // ── GitHub Activity ──
+    (async function loadGitHubActivity() {
+      const GH_USER = 'yogesh201206';
+      const elLoading = document.getElementById('gh-loading');
+      const elError   = document.getElementById('gh-error');
+      const elContent = document.getElementById('gh-content');
+
+      function formatDate(iso) {
+        const d = new Date(iso);
+        return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+      }
+
+      try {
+        const [userRes, reposRes] = await Promise.all([
+          fetch(`https://api.github.com/users/${GH_USER}`),
+          fetch(`https://api.github.com/users/${GH_USER}/repos?sort=updated&per_page=4`)
+        ]);
+
+        if (!userRes.ok || !reposRes.ok) throw new Error('API error');
+
+        const user  = await userRes.json();
+        const repos = await reposRes.json();
+
+        // Populate stats
+        document.getElementById('gh-repos').textContent     = user.public_repos;
+        document.getElementById('gh-followers').textContent = user.followers;
+
+        // Populate repository cards
+        const grid = document.getElementById('gh-repos-grid');
+        grid.innerHTML = repos.map(repo => `
+          <a href="${repo.html_url}" target="_blank" class="gh-repo-card">
+            <div class="gh-repo-name">
+              <i class="fas fa-book-open" style="font-size:0.85rem;opacity:0.7;"></i>
+              ${repo.name}
+            </div>
+            <p class="gh-repo-desc">${repo.description || 'No description available'}</p>
+            <div class="gh-repo-meta">
+              ${repo.language ? `<span><span class="gh-lang-dot"></span>${repo.language}</span>` : ''}
+              <span><i class="fas fa-star"></i> ${repo.stargazers_count}</span>
+              <span><i class="fas fa-code-branch"></i> ${repo.forks_count}</span>
+              <span><i class="far fa-clock"></i> ${formatDate(repo.updated_at)}</span>
+            </div>
+          </a>
+        `).join('');
+
+        elLoading.style.display = 'none';
+        elContent.style.display = 'block';
+      } catch (err) {
+        elLoading.style.display = 'none';
+        elError.style.display   = 'block';
+      }
+    })();
   </script>
 </body>
 
